@@ -2,6 +2,17 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
+
+import axios from 'axios'
+axios.defaults.baseURL = ''
+Vue.prototype.$http = axios
+
+import "./assets/css/global.css"
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
