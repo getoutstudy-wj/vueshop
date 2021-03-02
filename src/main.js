@@ -9,7 +9,16 @@ Vue.prototype.$message = Message
 
 import axios from 'axios'
 //确定接口
-axios.defaults.baseURL = 'http://www.ysqorz.top:8888/api/private/v1/'
+axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/'
+
+//请求拦截器（）再访问其它API时，为请求头添加token信息
+axios.interceptors.request.use(config => {  //箭头函数，传参只有一个可省略括号
+  console.log(config)
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+
+  return config
+})
+
 Vue.prototype.$http = axios
 
 import "./assets/css/global.css"  //导入全局样式表
