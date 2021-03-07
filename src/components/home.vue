@@ -21,6 +21,7 @@
           :collapse="isCollapse"
           :collapse-transition="false"
           router
+          :default-active="activePath"
         >
           <!-- 一级菜单 -->
           <el-submenu
@@ -39,6 +40,7 @@
               :index="'/' + subItem.path"
               v-for="subItem in item.children"
               :key="subItem.id"
+              @click="saveNavState('/' + subItem.path)"
             >
               <template slot="title">
                 <i class="el-icon-menu"></i>
@@ -50,7 +52,7 @@
       </el-aside>
       <!-- 主体内容 -->
       <el-container>
-        <el-main> 
+        <el-main>
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -78,10 +80,13 @@ export default {
         "el-icon-s-data",
       ],
       isCollapse: false,
+      //被激活的链接地址
+      activePath: ""
     };
   },
   created() {
-    this.getMenulist();
+    this.getMenulist()
+    this.activePath=window.sessionStorage.getItem("activePath")
   },
   methods: {
     //清空token，退回login页面
@@ -98,6 +103,10 @@ export default {
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
     },
+    saveNavState(activePath) {
+      window.sessionStorage.setItem("activePath", activePath)
+      this.activePath=activePath
+    }
   },
 };
 </script>
